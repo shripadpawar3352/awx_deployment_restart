@@ -9,7 +9,7 @@
   tasks:
     - name: Trigger rollout restart by patching annotation
       kubernetes.core.k8s:
-        kubeconfig: "{{ lookup('env','KUBECONFIG') }}"
+        #kubeconfig: "{{ lookup('env','KUBECONFIG') }}"
         state: patched
         kind: Deployment
         name: "{{ deployment_name }}"
