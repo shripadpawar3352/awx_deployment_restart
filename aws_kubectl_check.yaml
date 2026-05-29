@@ -1,0 +1,10 @@
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Check aws cli
+      command: aws --version
+      ignore_errors: yes
+ 
+    - name: Check kubectl
+      command: kubectl version --client
+      ignore_errors: yes
