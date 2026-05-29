@@ -1,6 +1,23 @@
 - hosts: localhost
   gather_facts: no
   tasks:
+    - name: Install awscli via pip (user space)
+      pip:
+        name: awscli
+        extra_args: --user
+ 
+    - name: Download kubectl
+      get_url:
+        url: https://dl.k8s.io/release/v1.29.0/bin/linux/amd64/kubectl
+        dest: /tmp/kubectl
+        mode: '0755'
+ 
+    - name: Move kubectl to PATH
+      copy:
+        src: /tmp/kubectl
+        dest: /usr/local/bin/kubectl
+        mode: '0755'
+      become: yes
     - name: Check aws cli
       command: aws --version
       ignore_errors: yes
