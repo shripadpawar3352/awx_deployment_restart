@@ -1,0 +1,17 @@
+---
+- name: Gather and list Amazon S3 buckets
+  hosts: localhost
+  gather_facts: false
+  vars:
+    ansible_connection: amazon.aws.aws_ssm
+    ansible_aws_ssm_region: us-east-1
+    ansible_aws_ssm_bucket_name: bucket-for-automaticsystemsmanagerrole
+    ansible_aws_ssm_assume_role: arn:aws:iam::913524949355:role/EKSAccessRole
+  tasks:
+    - name: Fetch S3 bucket information
+      amazon.aws.s3_bucket_info:
+      register: s3_info
+ 
+    - name: Output all S3 bucket names
+      ansible.builtin.debug:
+        msg: "{{ s3_info.buckets | map(attribute='name') | list }}"
