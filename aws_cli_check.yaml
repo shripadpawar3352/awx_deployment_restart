@@ -1,0 +1,11 @@
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Install awscli via pip (user space)
+      pip:
+        name: awscli
+#        extra_args: --user
+
+    - name: Check aws cli
+      command: aws --version
+      ignore_errors: yes
